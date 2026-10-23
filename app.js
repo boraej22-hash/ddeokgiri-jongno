@@ -39,7 +39,7 @@
   function detailUrl(id) { return PAGE.root + "p/" + id + "/"; }
   // 사진: 만들 때 찾은 사진(window.PHOTOS)만 씀. 없으면 "사진 등록 예정" 칸
   function photo(i, cls, label, lazy) {
-    var P = window.PHOTOS || {};
+    var P = lazy && window.THUMBS && window.THUMBS[i.id] ? window.THUMBS : (window.PHOTOS || {});   // 목록은 크기 맞춘 사진
     if (!P[i.id]) return '<div class="' + cls + ' nophoto"><span>' + label + '</span></div>';
     var src = PAGE.root + P[i.id];
     return '<div class="' + cls + '"><img src="' + src + '" alt=""' + (lazy ? ' loading="lazy"' : "") +
