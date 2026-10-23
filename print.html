@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<title>떡기리 종로점 쇼카드 인쇄</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+<script src="data.js?v=mvkhhz22"></script>
+<style>
+  :root { --teal: #103D3A; --ivory: #FBF8F2; --ink: #1d1d1b; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #ddd8cf; font-family: "Noto Sans KR", sans-serif; color: var(--ink); }
+  /* 관리 도구 (인쇄 안 됨) */
+  .tools { background: #fff; padding: 14px 20px; border-bottom: 1px solid #ccc; font-size: 14px; }
+  .tools h1 { margin: 0 0 4px; font-size: 20px; color: var(--teal); }
+  .tools p { margin: 4px 0; color: #555; }
+  .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 8px; }
+  .tools button { padding: 8px 14px; font: inherit; border-radius: 8px; border: 1px solid var(--teal); background: #fff; color: var(--teal); cursor: pointer; }
+  .tools button.main { background: var(--teal); color: #fff; font-weight: 700; }
+  .pick { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 2px 12px; margin-top: 8px; max-height: 190px; overflow: auto; border: 1px solid #eee; padding: 6px 8px; border-radius: 8px; }
+  .pick b { grid-column: 1 / -1; color: var(--teal); margin-top: 4px; }
+  .warn { margin-top: 8px; padding: 8px 12px; border-radius: 8px; background: #fff4e0; border: 1px solid #f0c27a; color: #7a4a00; }
+  /* A4 가로, 기존 PDF와 같은 3×3 · 카드 90×55.5mm */
+  .sheet { width: 297mm; height: 210mm; margin: 8mm auto; background: #fff; position: relative; overflow: hidden;
+           display: grid; grid-template-columns: repeat(3, 90mm); grid-template-rows: repeat(3, 55.5mm); justify-content: center; align-content: center; }
+  .card { position: relative; background: var(--ivory); border: 0.2mm dashed #c9c1b2; overflow: hidden; }
+  .card.empty { background: #fff; }
+  .card::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 1.6mm; background: var(--teal); }
+  .card.empty::before { display: none; }
+  .logo { position: absolute; left: 5.5mm; top: 4.5mm; width: 8mm; height: 8mm; border-radius: 1.3mm; }
+  .title { position: absolute; left: 5.5mm; top: 14.5mm; right: 5mm; }
+  .title .qspace { float: right; width: 22mm; height: 14mm; }
+  .name { font-weight: 800; font-size: 22pt; line-height: 1.12; letter-spacing: -.03em; word-break: keep-all; }
+  .name.m { font-size: 19pt; } .name.s { font-size: 16pt; }
+  .en { margin-top: 1.2mm; font-size: 9pt; font-weight: 500; color: #3d3a34; line-height: 1.25; }
+  .sub { margin-top: .5mm; font-size: 6.8pt; color: #5f5a51; line-height: 1.3; }
+  .extra { position: absolute; left: 5.5mm; bottom: 15.3mm; right: 5mm; font-size: 6.8pt; color: #5f5a51; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .rule { position: absolute; left: 5.5mm; right: 5mm; bottom: 13.8mm; border-top: .35mm solid var(--teal); }
+  .price { position: absolute; left: 5.5mm; right: 5mm; bottom: 2.8mm; display: flex; gap: 5mm; align-items: baseline; }
+  .p { font-weight: 800; font-size: 21pt; letter-spacing: -.02em; white-space: nowrap; }
+  .price.two .p { font-size: 17pt; }
+  .p .sz { font-size: 8pt; font-weight: 800; color: #fff; background: var(--teal); border-radius: 1mm; padding: .2mm 1.2mm; margin-right: 1.3mm; vertical-align: 3pt; }
+  .p .u { font-size: 10pt; font-weight: 700; color: #5f5a51; margin-right: 1.5mm; }
+  .p s { font-weight: 500; font-size: 11pt; color: #7a746a; margin-right: 2mm; }
+  .qr { position: absolute; right: 4.5mm; top: 4.5mm; width: 20mm; text-align: center; }
+  .qr svg { width: 20mm; height: 20mm; display: block; }
+  .qr b { display: block; margin-top: .8mm; font-size: 8pt; font-weight: 800; letter-spacing: .2em; color: var(--teal); }
+  @page { size: A4 landscape; margin: 0; }
+  @media print {
+    body { background: #fff; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .tools { display: none; }
+    .sheet { margin: 0; page-break-after: always; break-after: page; }
+    .sheet:last-child { page-break-after: auto; break-after: auto; }
+  }
+</style>
+</head>
+<body>
+<div class="tools" id="tools">
+  <h1>떡기리 종로점 쇼카드 인쇄</h1>
+  <p>A4 가로 한 장에 90×55.5mm 카드 9장. 인쇄 창에서 <b>용지 A4 · 가로 · 배율 100%(실제 크기) · 여백 없음 · 배경 그래픽 켜기</b>로 인쇄한 뒤 점선대로 자르세요.</p>
+  <div class="row">
+    <button id="all">전체 49장 (기존 PDF 순서)</button>
+    <button id="none">모두 해제</button>
+    <span id="count"></span>
+    <button class="main" onclick="window.print()">인쇄하기</button>
+  </div>
+  <div class="pick" id="pick"></div>
+  <div class="warn" id="warn" hidden></div>
+</div>
+<div id="sheets"></div>
+<script src="config.js?v=mvkhhz22"></script>
+<script>
+var J = window.JONGNO, SITE = (window.SITE_URL || "").replace(/\/?$/, "/");
+var byId = {}; J.items.forEach(function (i) { byId[i.id] = i; });
+// 기존 PDF와 같은 쪽·같은 자리 (빈 칸 포함) — 전체 인쇄할 때 사용
+var PDF_ORDER = [];
+for (var p = 1; p <= 6; p++) {
+  var L = { 2: ["assorted-garaeddeok", null, "walnut-gangjeong", null, "cheese-gotgam-6-double", "cheese-gotgam-6-special", null, "cheese-gotgam-10-special", "cheese-gotgam-10-double"],
+            6: ["hangwa-set", "herbal-blend-5", "signature-blend-7", "premium-collection-12", "chamomile-blend-7", "tea-calendar", "gangjeong6-yakgwa", null, null] }[p];
+  PDF_ORDER = PDF_ORDER.concat(L || J.items.filter(function (i) { return i.page === p; }).map(function (i) { return i.id; }));
+}
+var q = new URLSearchParams(location.search);
+var picked = q.get("ids") ? q.get("ids").split(",") : PDF_ORDER.filter(Boolean);
+
+function qrSvg(t) {
+  var qr = qrcode(0, "M"); qr.addData(t); qr.make();
+  var n = qr.getModuleCount(), m = 2, s = n + m * 2, d = "";
+  for (var r = 0; r < n; r++) for (var c = 0; c < n; c++) if (qr.isDark(r, c)) d += "M" + (c + m) + " " + (r + m) + "h1v1h-1z";
+  return '<svg viewBox="0 0 ' + s + " " + s + '" shape-rendering="crispEdges" data-url="' + t + '"><rect width="' + s + '" height="' + s + '" fill="#fff"/><path d="' + d + '" fill="#103D3A"/></svg>';
+}
+function won(n) { return "₩" + n.toLocaleString("en-US"); }
+function card(i) {
+  if (!i) return '<div class="card empty"></div>';
+  var len = i.ko.length, cls = len <= 7 ? "name" : len <= 11 ? "name m" : "name s";
+  var price = i.prices.map(function (p, k) {
+    return '<span class="p">' + (p[0] ? '<span class="sz">' + p[0] + "</span>" : "") + (i.unit ? '<span class="u">' + i.unit + "</span>" : "") +
+      (i.was && k === 0 ? "<s>" + won(i.was) + "</s>" : "") + won(p[1]) + "</span>";
+  }).join("");
+  return '<div class="card" data-id="' + i.id + '">' +
+    '<img class="logo" src="assets/logo-original.jpg" alt="떡기리">' +
+    '<div class="qr">' + qrSvg(SITE + "p/" + i.id + "/") + "<b>SCAN ME</b></div>" +
+    '<div class="title"><div class="qspace"></div><div class="' + cls + '">' + i.ko + '</div><div class="en">' + i.en + "</div>" +
+      (i.sub ? '<div class="sub">' + i.sub + "</div>" : "") + "</div>" +
+    (i.extra ? '<div class="extra">' + i.extra.split(" · ")[0] + "</div>" : "") +
+    '<div class="rule"></div><div class="price' + (i.prices.length > 1 ? " two" : "") + '">' + price + "</div></div>";
+}
+function render() {
+  var all49 = picked.length === 49;
+  var cells = all49 ? PDF_ORDER : picked;   // 전체면 기존 PDF 자리 그대로, 일부면 앞에서부터 9장씩
+  var html = "";
+  for (var s = 0; s < cells.length; s += 9) {
+    var nine = cells.slice(s, s + 9); while (nine.length < 9) nine.push(null);
+    html += '<div class="sheet">' + nine.map(function (id) { return card(id && byId[id]); }).join("") + "</div>";
+  }
+  document.getElementById("sheets").innerHTML = html;
+  document.getElementById("count").textContent = "카드 " + picked.length + "장 · A4 " + Math.ceil(cells.length / 9) + "장";
+  var warn = document.getElementById("warn");
+  var local = !window.SITE_URL || /localhost|127\.0\.0\.1|^http:\/\/(10|192\.168|172\.(1[6-9]|2\d|3[01]))\./.test(SITE);
+  warn.hidden = !local;
+  warn.textContent = "지금 QR 주소(" + SITE + ")는 테스트용 주소예요. 인터넷에 올린 뒤 실제 주소로 다시 만든 PDF를 인쇄하세요.";
+}
+function renderPick() {
+  var h = "";
+  J.categories.forEach(function (c) {
+    h += "<b>" + c.ko + "</b>";
+    J.items.filter(function (i) { return i.cat === c.id; }).forEach(function (i) {
+      h += '<label><input type="checkbox" data-id="' + i.id + '"' + (picked.indexOf(i.id) >= 0 ? " checked" : "") + "> " + i.ko + "</label>";
+    });
+  });
+  document.getElementById("pick").innerHTML = h;
+}
+document.getElementById("pick").onchange = function (e) {
+  var id = e.target.getAttribute("data-id"); if (!id) return;
+  picked = picked.filter(function (x) { return x !== id; });
+  if (e.target.checked) picked.push(id);
+  render();
+};
+document.getElementById("all").onclick = function () { picked = PDF_ORDER.filter(Boolean); renderPick(); render(); };
+document.getElementById("none").onclick = function () { picked = []; renderPick(); render(); };
+renderPick(); render();
+</script>
+</body>
+</html>
