@@ -77,7 +77,11 @@ window.JONGNO = {
     { id: "premium-collection-12", page: 6, cat: "tea", ko: "프리미엄 컬렉션 12입", en: "Premium Collection 12-pack", zh: "尊享精选茶 12包", prices: [["", 24000]] },
     { id: "chamomile-blend-7", page: 6, cat: "tea", ko: "캐모마일 블랜드 7입", en: "Chamomile Blend 7-pack", zh: "洋甘菊精选茶 7包", prices: [["", 14000]] },
     { id: "tea-calendar", page: 6, cat: "tea", ko: "티 캘린더", en: "Tea Calendar", zh: "茶日历", prices: [["", 45000]], was: 55000 },
-    { id: "gangjeong6-yakgwa", page: 6, cat: "snack", ko: "강정 6종 + 약과", en: "Six kinds of gangjeong + yakgwa", zh: "6种韩式米果糖＋传统药果", prices: [["", 10000]] }
+    { id: "gangjeong6-yakgwa", page: 6, cat: "snack", ko: "강정 6종 + 약과", en: "Six kinds of gangjeong + yakgwa", zh: "6种韩式米果糖＋传统药果", prices: [["", 10000]] },
+
+    // ── 신메뉴 (2026-10-23 사장님 추가, 기존 PDF에 없음 → 쇼카드 새로 인쇄)
+    { id: "pizza-seolgi", page: 7, cat: "ricecake", ko: "피자설기", en: "Pizza Seolgi (steamed rice cake)", zh: "披萨蒸米糕", prices: [["", 4000]] },
+    { id: "corn-cheese-seolgi", page: 7, cat: "ricecake", ko: "콘치즈설기", en: "Corn Cheese Seolgi (steamed rice cake)", zh: "玉米芝士蒸米糕", prices: [["", 4000]] }
   ]
 };
 
@@ -143,7 +147,9 @@ window.JONGNO_DRAFT = {
     "premium-collection-12": "プレミアムコレクション 12包",
     "chamomile-blend-7": "カモミールブレンド 7包",
     "tea-calendar": "ティーカレンダー",
-    "gangjeong6-yakgwa": "カンジョン6種＋薬菓"
+    "gangjeong6-yakgwa": "カンジョン6種＋薬菓",
+    "pizza-seolgi": "ピザ・ソルギ（蒸し餅）",
+    "corn-cheese-seolgi": "コーンチーズ・ソルギ（蒸し餅）"
   },
   desc: {
     "black-sesame-injeolmi": {
@@ -161,4 +167,4 @@ window.JONGNO_DRAFT = {
   }
 };
 
-window.PHOTOS = {"coconut-injeolmi":"images/jongno/coconut-injeolmi.jpg","pumpkin-castella-injeolmi":"images/jongno/pumpkin-castella-injeolmi.jpg","mugwort-injeolmi":"images/jongno/mugwort-injeolmi.jpg","black-sesame-injeolmi":"images/injeolmi-heukimja.webp","strawberry-castella-injeolmi":"images/jongno/strawberry-castella-injeolmi.jpg","nutrition-chalddeok":"images/jongno/nutrition-chalddeok.jpg","cheese-gotgam-danja":"images/jongno/cheese-gotgam-danja.jpg","mocha-castella-injeolmi":"images/jongno/mocha-castella-injeolmi.jpg","assorted-garaeddeok":"images/garaeddeok.webp","walnut-gangjeong":"images/jongno/walnut-gangjeong.jpg","cheese-gotgam-6-double":"images/gotgam-gangjeong-6gu.webp","cheese-gotgam-6-special":"images/gotgam-6gu.webp","cheese-gotgam-10-special":"images/gotgam-10gu.webp","cheese-gotgam-10-double":"images/gotgam-gangjeong-10gu.webp","gift-set-2":"images/jongno/gift-set-2.jpg","gift-set-3":"images/jongno/gift-set-3.jpg","gift-set-5":"images/jongno/gift-set-5.jpg","gift-set-4":"images/jongno/gift-set-4.jpg","gift-set-1":"images/jongno/gift-set-1-graphic.jpg","special-set-1":"images/jongno/special-set-1.jpg","yakgwa-6p":"images/jongno/yakgwa-6p.jpg","special-set-2":"images/jongno/special-set-2.jpg","special-set-3":"images/jongno/special-set-3.jpg","baramddeok":"images/jongno/baramddeok.jpg","kkulddeok":"images/jongno/kkulddeok.jpg","oil-100":"images/jongno/oil-100.jpg","walnut-ball":"images/jongno/walnut-ball.jpg","oil-150":"images/jongno/oil-150.jpg","seolgiddeok":"images/jongno/seolgiddeok.jpg","red-bean-ddeok-3p":"images/jongno/red-bean-ddeok-3p.jpg","oil-200":"images/jongno/oil-200.jpg","yakgwa":"images/jongno/yakgwa.jpg","gangjeong6-yakgwa":"images/jongno/gangjeong6-yakgwa.jpg"};
+window.PHOTOS = {"coconut-injeolmi":"images/jongno/coconut-injeolmi.jpg","pumpkin-castella-injeolmi":"images/jongno/pumpkin-castella-injeolmi.jpg","mugwort-injeolmi":"images/jongno/mugwort-injeolmi.jpg","black-sesame-injeolmi":"images/injeolmi-heukimja.webp","strawberry-castella-injeolmi":"images/jongno/strawberry-castella-injeolmi.jpg","nutrition-chalddeok":"images/jongno/nutrition-chalddeok.jpg","cheese-gotgam-danja":"images/jongno/cheese-gotgam-danja.jpg","mocha-castella-injeolmi":"images/jongno/mocha-castella-injeolmi.jpg","assorted-garaeddeok":"images/garaeddeok.webp","walnut-gangjeong":"images/jongno/walnut-gangjeong.jpg","cheese-gotgam-6-double":"images/gotgam-gangjeong-6gu.webp","cheese-gotgam-6-special":"images/gotgam-6gu.webp","cheese-gotgam-10-special":"images/gotgam-10gu.webp","cheese-gotgam-10-double":"images/gotgam-gangjeong-10gu.webp","gift-set-2":"images/jongno/gift-set-2.jpg","gift-set-3":"images/jongno/gift-set-3.jpg","gift-set-5":"images/jongno/gift-set-5.jpg","gift-set-4":"images/jongno/gift-set-4.jpg","gift-set-1":"images/jongno/gift-set-1-graphic.jpg","special-set-1":"images/jongno/special-set-1.jpg","yakgwa-6p":"images/jongno/yakgwa-6p.jpg","special-set-2":"images/jongno/special-set-2.jpg","special-set-3":"images/jongno/special-set-3.jpg","baramddeok":"images/jongno/baramddeok.jpg","kkulddeok":"images/jongno/kkulddeok.jpg","oil-100":"images/jongno/oil-100.jpg","walnut-ball":"images/jongno/walnut-ball.jpg","oil-150":"images/jongno/oil-150.jpg","seolgiddeok":"images/jongno/seolgiddeok.jpg","red-bean-ddeok-3p":"images/jongno/red-bean-ddeok-3p.jpg","oil-200":"images/jongno/oil-200.jpg","yugwa":"images/jongno/yugwa.jpg","oranda":"images/jongno/oranda.jpg","yakgwa":"images/jongno/yakgwa.jpg","hangwa-set":"images/jongno/hangwa-set.jpg","gangjeong6-yakgwa":"images/jongno/gangjeong6-yakgwa.jpg","pizza-seolgi":"images/jongno/pizza-seolgi.jpg","corn-cheese-seolgi":"images/jongno/corn-cheese-seolgi.jpg"};

@@ -6,7 +6,7 @@
 <title>떡기리 종로점 쇼카드 인쇄</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
-<script src="data.js?v=mvkkr8ki"></script>
+<script src="data.js?v=mvkn3x0k"></script>
 <style>
   :root { --teal: #103D3A; --ivory: #FBF8F2; --ink: #1d1d1b; }
   * { box-sizing: border-box; }
@@ -60,7 +60,7 @@
   <h1>떡기리 종로점 쇼카드 인쇄</h1>
   <p>A4 가로 한 장에 90×55.5mm 카드 9장. 인쇄 창에서 <b>용지 A4 · 가로 · 배율 100%(실제 크기) · 여백 없음 · 배경 그래픽 켜기</b>로 인쇄한 뒤 점선대로 자르세요.</p>
   <div class="row">
-    <button id="all">전체 49장 (기존 PDF 순서)</button>
+    <button id="all">전체 (기존 PDF 순서 + 신메뉴)</button>
     <button id="none">모두 해제</button>
     <span id="count"></span>
     <button class="main" onclick="window.print()">인쇄하기</button>
@@ -69,13 +69,14 @@
   <div class="warn" id="warn" hidden></div>
 </div>
 <div id="sheets"></div>
-<script src="config.js?v=mvkkr8ki"></script>
+<script src="config.js?v=mvkn3x0k"></script>
 <script>
 var J = window.JONGNO, SITE = (window.SITE_URL || "").replace(/\/?$/, "/");
 var byId = {}; J.items.forEach(function (i) { byId[i.id] = i; });
 // 기존 PDF와 같은 쪽·같은 자리 (빈 칸 포함) — 전체 인쇄할 때 사용
 var PDF_ORDER = [];
-for (var p = 1; p <= 6; p++) {
+var LAST_PAGE = Math.max.apply(null, J.items.map(function (i) { return i.page; }));   // 7쪽부터는 신메뉴
+for (var p = 1; p <= LAST_PAGE; p++) {
   var L = { 2: ["assorted-garaeddeok", null, "walnut-gangjeong", null, "cheese-gotgam-6-double", "cheese-gotgam-6-special", null, "cheese-gotgam-10-special", "cheese-gotgam-10-double"],
             6: ["hangwa-set", "herbal-blend-5", "signature-blend-7", "premium-collection-12", "chamomile-blend-7", "tea-calendar", "gangjeong6-yakgwa", null, null] }[p];
   PDF_ORDER = PDF_ORDER.concat(L || J.items.filter(function (i) { return i.page === p; }).map(function (i) { return i.id; }));
@@ -106,7 +107,7 @@ function card(i) {
     '<div class="rule"></div><div class="price' + (i.prices.length > 1 ? " two" : "") + '">' + price + "</div></div>";
 }
 function render() {
-  var all49 = picked.length === 49;
+  var all49 = picked.length === J.items.length;   // 전체를 고르면 기존 PDF 자리 그대로
   var cells = all49 ? PDF_ORDER : picked;   // 전체면 기존 PDF 자리 그대로, 일부면 앞에서부터 9장씩
   var html = "";
   for (var s = 0; s < cells.length; s += 9) {
